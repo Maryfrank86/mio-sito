@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frenzy Web — Consulenza Digitale & Supporto Informatico</title>
+  <meta name="description" content="Frenzy Web — Digitalizzazione, supporto informatico e consulenza digitale per imprese, studi professionali e privati. Operativa su tutta Italia." />
+  <style>
+    /* ── RESET & BASE ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --viola:       #6C31A8;
+      --viola-dark:  #4A1F78;
+      --viola-light: #9B5CDB;
+      --arancio:     #F27321;
+      --arancio-light:#FF9A55;
+      --bianco:      #FFFFFF;
+      --grigio-ch:   #F8F4FF;
+      --grigio-t:    #333333;
+      --grigio-s:    #666666;
+      --radius:      12px;
+      --shadow:      0 4px 24px rgba(108,49,168,0.13);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--grigio-t);
+      background: var(--bianco);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── UTILITY ──────────────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .badge-active  { background: #e8f5e9; color: #2e7d32; }
+    .badge-coming  { background: #e8f5e9; color: #2e7d32; }
+
+    /* ── NAVBAR ───────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--viola-dark);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--bianco);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--arancio); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.93rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--orange-light); }
+    .nav-cta {
+      background: var(--arancio);
+      color: var(--bianco) !important;
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-weight: 700 !important;
+      transition: background .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; transform: translateY(-1px); }
+
+    /* hamburger mobile */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--bianco); border-radius: 2px; transition: .3s; }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--viola-dark) 0%, var(--viola) 55%, var(--viola-light) 100%);
+      padding: 100px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(242,115,33,0.2);
+      color: var(--arancio-light);
+      border: 1px solid rgba(242,115,33,0.4);
+      padding: 5px 18px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--bianco);
+      line-height: 1.18;
+      margin-bottom: 10px;
+    }
+    .hero h1 span { color: var(--arancio); }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.82);
+      max-width: 580px;
+      margin: 0 auto 36px;
+    }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--arancio);
+      color: var(--bianco);
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(242,115,33,0.4);
+    }
+    .btn-primary:hover { background: var(--arancio-light); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(242,115,33,0.5); }
+    .btn-outline {
+      background: transparent;
+      color: var(--bianco);
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: 2px solid rgba(255,255,255,0.6);
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .btn-outline:hover { border-color: var(--bianco); background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+    /* ── STRIP STATS ──────────────────────────────────────────── */
+    .stats-strip {
+      background: var(--bianco);
+      box-shadow: var(--shadow);
+      padding: 32px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      text-align: center;
+    }
+    .stat-item strong {
+      display: block;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--viola);
+    }
+    .stat-item span { font-size: 0.88rem; color: var(--grigio-s); }
+
+    /* ── SEZIONE GENERICA ─────────────────────────────────────── */
+    section { padding: 80px 0; }
+    .section-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--arancio);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--viola-dark);
+      margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--grigio-s);
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+    .section-bg { background: var(--grigio-ch); }
+
+    /* ── CHI SONO ─────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .avatar-wrap { text-align: center; }
+    .avatar-circle {
+      width: 140px; height: 140px;
+      background: linear-gradient(135deg, var(--viola), var(--viola-light));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--bianco);
+      box-shadow: 0 8px 32px rgba(108,49,168,0.35);
+    }
+    .brand-name-card {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--viola-dark);
+      margin-bottom: 4px;
+    }
+    .brand-role { font-size: 0.85rem; color: var(--grigio-s); }
+    .about-text p { margin-bottom: 16px; color: var(--grigio-s); font-size: 0.97rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .tag {
+      background: rgba(108,49,168,0.09);
+      color: var(--viola-dark);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* ── SERVIZI ──────────────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+    .card {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--viola-light);
+      transition: transform .2s, box-shadow .2s;
+      position: relative;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(108,49,168,0.18); }
+    .card.coming { border-top-color: var(--viola); opacity: 0.88; }
+    .card-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--viola), var(--viola-light));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+    .card.coming .card-icon { background: linear-gradient(135deg, var(--viola), var(--viola-light)); }
+    .card h3 { font-size: 1.08rem; font-weight: 800; color: var(--viola-dark); margin-bottom: 10px; }
+    .card.coming h3 { color: var(--viola); }
+    .card p { font-size: 0.9rem; color: var(--grigio-s); margin-bottom: 16px; }
+    .card ul { list-style: none; padding: 0; margin-bottom: 20px; }
+    .card ul li {
+      font-size: 0.87rem;
+      color: var(--grigio-s);
+      padding: 4px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .card ul li::before {
+      content: '✓';
+      position: absolute; left: 0;
+      color: var(--viola-light);
+      font-weight: 700;
+    }
+    .card.coming ul li::before { color: var(--viola); }
+    .card-price {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--viola);
+      background: rgba(108,49,168,0.07);
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+     .card-badge { position: absolute; top: 18px; right: 18px; }
+
+    /* ── PERCHÉ SCEGLIERMI ────────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .why-card {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: transform .2s;
+    }
+    .why-card:hover { transform: translateY(-4px); }
+    .why-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .why-card h4 { font-size: 0.97rem; font-weight: 700; color: var(--viola-dark); margin-bottom: 8px; }
+    .why-card p { font-size: 0.86rem; color: var(--grigio-s); }
+
+    /* ── CONTATTI ─────────────────────────────────────────────── */
+    .contact-section {
+      background: linear-gradient(135deg, var(--viola-dark) 0%, var(--viola) 100%);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .contact-section .section-label { color: var(--arancio-light); }
+    .contact-section .section-title { color: var(--bianco); }
+    .contact-section .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto 40px; }
+    .contact-cards {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--bianco);
+      padding: 14px 26px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background .2s, transform .15s;
+      backdrop-filter: blur(6px);
+    }
+    .contact-item:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+    .contact-item .ci-icon {
+      width: 36px; height: 36px;
+      background: var(--arancio);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: var(--viola-dark);
+      padding: 28px 0;
+      text-align: center;
+    }
+    footer p { color: rgba(255,255,255,0.55); font-size: 0.83rem; }
+    footer strong { color: var(--arancio); }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--viola-dark); padding: 20px 24px; gap: 16px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .avatar-wrap { order: -1; }
+      section { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ──────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">Frenzy<span>Web</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#chi-sono">Chi sono</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#perche">Perché scegliermi</a></li>
+      <li><a href="#contatti" class="nav-cta">Contattami</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">🚀 Frenzy Web — Consulenza Digitale</div>
+    <h1>Il digitale che semplifica<br /><span>la tua attività</span></h1>
+    <p class="hero-subtitle">Digitalizzazione, supporto informatico e consulenza digitale per imprese, studi professionali e privati. Operativa su tutta Italia.</p>
+    <div class="hero-btns">
+      <a href="#servizi" class="btn-primary">Scopri i servizi</a>
+      <a href="#contatti" class="btn-outline">Contattami ora</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS STRIP ──────────────────────────────────────────────────────── -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><strong>100%</strong><span>Operatività online</span></div>
+      <div class="stat-item"><strong>24h</strong><span>Preventivo gratuito</span></div>
+      <div class="stat-item"><strong>Italia</strong><span>Disponibile ovunque</span></div>
+      <div class="stat-item"><strong>PMI</strong><span>Specializzata</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CHI SONO ─────────────────────────────────────────────────────────── -->
+<section id="chi-sono">
+  <div class="container">
+    <div class="about-grid">
+      <div class="avatar-wrap">
+        <div class="avatar-circle">FW</div>
+        <div class="brand-name-card">Mariafrancesca Lucerino</div>
+        <div class="brand-role">Fondatrice · Frenzy Web</div>
+      </div>
+      <div class="about-text">
+        <span class="section-label">Chi sono</span>
+        <h2 class="section-title">Professionista multidisciplinare<br/>al servizio del tuo business</h2>
+        <p>Sono la fondatrice di <strong>Frenzy Web</strong>, un progetto nato per portare il digitale nelle piccole imprese, negli studi professionali e nelle attività che vogliono crescere senza complicarsi la vita. Combino una solida formazione giuridico-amministrativa con competenze informatiche e di web development per offrirti un servizio completo e personalizzato.</p>
+        <p>Attualmente sto completando il tirocinio per l'abilitazione come Commercialista e Revisore dei Conti, il che mi permette di affiancare alla consulenza digitale una visione precisa e aggiornata del contesto normativo e fiscale in cui operano le imprese.</p>
+        <p>Lavoro in modalità 100% online, con disponibilità su tutta Italia, come lavoratrice autonoma (Prestazione Occasionale o P.IVA).</p>
+        <div class="tags-wrap">
+          <span class="tag">Laurea Magistrale PA</span>
+          <span class="tag">Web Developer Front-End</span>
+          <span class="tag">Marketing Digitale</span>
+          <span class="tag">Tirocinio Commercialista</span>
+          <span class="tag">Informatica Avanzata</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVIZI ──────────────────────────────────────────────────────────── -->
+<section id="servizi" class="section-bg">
+  <div class="container">
+    <span class="section-label">Cosa offro</span>
+    <h2 class="section-title">Servizi disponibili</h2>
+    <p class="section-sub">Un servizio attivo già ora, e altri in arrivo a breve. Contattami per essere tra i primi a sapere quando si attivano.</p>
+    <div class="services-grid">
+
+      <!-- SERVIZIO 1 — ATTIVO -->
+      <div class="card">
+        <span class="badge badge-active card-badge">✅ Attivo</span>
+        <div class="card-icon">🗂️</div>
+        <h3>Digitalizzazione & Gestione Documentale</h3>
+        <p>Supporto completo per digitalizzare, organizzare e gestire archivi documentali in modo professionale, sicuro e conforme alla normativa.</p>
+        <ul>
+          <li>Scansione e digitalizzazione archivi cartacei</li>
+          <li>Organizzazione file con nomenclatura logica</li>
+          <li>Gestione cloud (Google Drive, OneDrive, Dropbox)</li>
+          <li>Configurazione Google Workspace / Office 365</li>
+          <li>Supporto SPID, firma digitale, PEC</li>
+          <li>Gestione database e fogli di calcolo</li>
+          <li>Formazione base al personale</li>
+          <li>Consulenza conservazione legale documenti</li>
+        </ul>
+        <span class="card-price">Pacchetti su misura · Preventivo gratuito 24h</span>
+      </div>
+
+      <!-- SERVIZIO 2 — ATTIVO -->
+      <div class="card coming">
+        <span class="badge badge-coming card-badge">✅ Attivo</span>
+        <div class="card-icon">🌐</div>
+        <h3>Creazione Siti Web per Imprese, Studi Professionali e Privati</h3>
+        <p>Siti web professionali, moderni e ottimizzati per imprese,professionisti e privati che vogliono farsi trovare online.</p>
+        <ul>
+          <li>Siti vetrina, landing page, e-commerce da zero</li>
+          <li>Design responsive ottimizzato mobile</li>
+          <li>Ottimizzazione SEO di base</li>
+          <li>Integrazione social media</li>
+          <li>Pannello di gestione semplice (CMS)</li>
+        </ul>
+        <span class="card-price">Pacchetti su misura · Preventivo gratuito 24h</span>
+      </div>
+
+      <!-- SERVIZIO 3 — ATTIVO -->
+      <div class="card coming">
+        <span class="badge badge-coming card-badge">✅ Attivo</span>
+        <div class="card-icon">📱</div>
+        <h3>Marketing Digitale & Social Media</h3>
+        <p>Strategie di presenza online per piccole realtà che vogliono farsi trovare e crescere sul web con contenuti efficaci.</p>
+        <ul>
+          <li>Creazione e gestione profili social</li>
+          <li>Piano editoriale mensile e contenuti</li>
+          <li>Newsletter e email marketing</li>
+          <li>Consulenza Meta Ads e Google Ads</li>
+        </ul>
+        <span class="card-price">Pacchetti su misura · Preventivo gratuito 24h</span>
+      </div>
+
+      <!-- SERVIZIO 4 — IN ARRIVO -->
+      <div class="card coming">
+        <span class="badge badge-coming card-badge">🔜 In arrivo</span>
+        <div class="card-icon">📋</div>
+        <h3>Consulenza Amministrativa, Contabile & Bandi</h3>
+        <p>Supporto operativo per pratiche amministrative, accesso a bandi pubblici e finanziamenti europei e nazionali.</p>
+        <ul>
+          <li>Ricerca bandi pubblici e finanziamenti UE</li>
+          <li>Supporto compilazione domande</li>
+          <li>Gestione documentazione amministrativa e Contabile</li>
+          <li>Pratiche SUAP e portali pubblici</li>
+        </ul>
+        <span class="card-price">🔜 Disponibile a breve — contattami per info</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PERCHÉ SCEGLIERMI ─────────────────────────────────────────────────── -->
+<section id="perche">
+  <div class="container">
+    <span class="section-label">I miei punti di forza</span>
+    <h2 class="section-title">Perché scegliere Frenzy Web</h2>
+    <p class="section-sub">Non solo competenze tecniche: un approccio integrato, umano e orientato ai risultati.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🇮🇹</span>
+        <h4>Tutta Italia</h4>
+        <p>Lavoro in modalità 100% online: raggiungo qualsiasi cliente su tutto il territorio nazionale.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⚡</span>
+        <h4>Preventivo in 24h</h4>
+        <p>Risposta rapida e preventivo gratuito entro 24 ore dalla richiesta.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🔗</span>
+        <h4>Approccio integrato</h4>
+        <p>Competenze tecniche + visione amministrativa e normativa per un supporto davvero completo.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🔒</span>
+        <h4>Precisione e riservatezza</h4>
+        <p>Massima cura dei dati e dei documenti affidati, nel rispetto della normativa sulla privacy.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📚</span>
+        <h4>Aggiornamento continuo</h4>
+        <p>Formazione costante su normative, tecnologie e strumenti digitali per offrirti sempre il meglio.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💼</span>
+        <h4>Flessibilità contrattuale</h4>
+        <p>Disponibile come Prestazione Occasionale o P.IVA, per adattarmi alle esigenze di ogni cliente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTATTI ──────────────────────────────────────────────────────────── -->
+<section class="contact-section" id="contatti">
+  <div class="container">
+    <span class="section-label">Iniziamo insieme</span>
+    <h2 class="section-title">Contattami</h2>
+    <p class="section-sub">Hai un progetto in mente o vuoi semplicemente capire come posso aiutarti? Scrivimi — rispondo sempre entro 24 ore.</p>
+    <div class="contact-cards">
+      <a href="mailto:franzyweb86@gmail.com" class="contact-item">
+        <div class="ci-icon">✉️</div>
+        <span>franzyweb86@gmail.com</span>
+      </a>
+      <a href="tel:3501260941" class="contact-item">
+        <div class="ci-icon">📱</div>
+        <span>3501260941</span>
+      </a>
+      <a href="[www.linkedin.com/in/frenzy-web]" target="_blank" rel="noopener" class="contact-item">
+        <div class="ci-icon">💼</div>
+        <span>LinkedIn</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <p><strong>Frenzy Web</strong> · Mariafrancesca Lucerino · Consulenza Digitale &amp; Supporto Informatico · Operativa su tutta Italia</p>
+    <p style="margin-top:6px;">Pagamento: Prestazione Occasionale o P.IVA &nbsp;|&nbsp; © 2025 Frenzy Web</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  // Chiudi menu al click su un link
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
